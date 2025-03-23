@@ -42,14 +42,13 @@ public interface StudentRepository {
 
     @ResultMap("studentMapper")
     @Update("""
-        UPDATE students
-        SET student_name = #{req.studentName},
-            email = #{req.email},
-            phone_number = #{req.phoneNumber}
-        WHERE student_id = #{studentId}
-        RETURNING *;
-    """)
-    Student updateStudentById(@Param("studentId") Long studentId, @Param("req") StudentRequest request);
+    UPDATE students
+    SET student_name = #{req.studentName},
+        email = #{req.email},
+        phone_number = #{req.phoneNumber}
+    WHERE student_id = #{studentId}
+""")
+    int updateStudentById(@Param("studentId") Long studentId, @Param("req") StudentRequest request);
 
 
     @ResultMap("studentMapper")

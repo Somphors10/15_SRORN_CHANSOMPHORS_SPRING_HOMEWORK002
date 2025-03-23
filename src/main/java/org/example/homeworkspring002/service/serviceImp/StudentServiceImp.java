@@ -41,11 +41,16 @@ public class StudentServiceImp implements StudentService {
 
     @Override
     public Student updateStudentById(Long studentId, StudentRequest request) {
-        studentCourseRepository.deleteByStudentId(studentId);
-        for (Long courseId : request.getCourseId()) {
-            studentCourseRepository.insertStudentIdAndCourseId(studentId, courseId);
+        int rowsUpdated = studentRepository.updateStudentById(studentId, request);
+        if (rowsUpdated > 0) {
+            studentCourseRepository.deleteByStudentId(studentId);
+            for (Long courseId : request.getCourseId()) {
+                studentCourseRepository.insertStudentIdAndCourseId(studentId, courseId);
+            }
+            return studentRepository.getStudentById(studentId);
+        } else {
+            throw new RuntimeException("Student with id " + studentId + " not found or could not be updated.");
         }
-        return studentRepository.getStudentById(studentId);
     }
 
     @Override

@@ -15,3 +15,6 @@ INSERT INTO students(student_name, email, phone_number) VALUES
 INSERT INTO student_course(student_id, course_id) VALUES
                                                       (1,10),
                                                       (2,12);
+
+INSERT INTO courses (course_id, course_name, instructor_id)
+VALUES (12, 'Course Name', 1);
